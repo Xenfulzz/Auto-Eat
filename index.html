@@ -15,7 +15,7 @@
     }
     .topbar {
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
       align-items: center;
       padding: 20px 40px;
       background-color: #1e1e1e;
@@ -24,8 +24,13 @@
     .topbar h1 {
       font-size: 1.5rem;
       color: #00ff99;
-      margin-right: auto;
       margin: 0;
+      flex-shrink: 0;
+    }
+    .right-controls {
+      display: flex;
+      align-items: center;
+      gap: 15px;
     }
     .download-count {
       font-weight: 600;
@@ -122,12 +127,14 @@
 <body>
   <div class="topbar">
     <h1>AutoEat v2.1</h1>
-    <div class="download-count">
-      <span id="download-count">...</span> downloads
+    <div class="right-controls">
+      <div class="download-count">
+        <span id="download-count">...</span> downloads
+      </div>
+      <a href="AutoEat.exe" class="top-download" download onclick="countDownload()">
+        Download
+      </a>
     </div>
-    <a href="AutoEat.exe" class="top-download" download onclick="countDownload()">
-      Download
-    </a>
   </div>
 
   <!-- Password info added here -->
