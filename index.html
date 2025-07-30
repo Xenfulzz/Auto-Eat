@@ -15,20 +15,17 @@
     }
     .topbar {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
       align-items: center;
       padding: 20px 40px;
       background-color: #1e1e1e;
+      gap: 15px;
     }
-    .topbar-left h1 {
+    .topbar h1 {
       font-size: 1.5rem;
       color: #00ff99;
+      margin-right: auto;
       margin: 0;
-    }
-    .topbar-right {
-      display: flex;
-      align-items: center;
-      gap: 10px;
     }
     .top-download {
       background-color: #00cc66;
@@ -39,16 +36,24 @@
       font-weight: 600;
       font-size: 0.95rem;
       text-decoration: none;
-      transition: background 0.3s ease;
       cursor: pointer;
+      transition: background 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
     }
     .top-download:hover {
       background-color: #00e699;
     }
     .download-count {
-      color: #cccccc;
-      font-size: 0.85rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #00ff99;
+      user-select: none;
+      min-width: 50px;
+      text-align: center;
     }
+    /* New password text style */
     .password-info {
       background-color: #222222;
       color: #00ff99;
@@ -116,15 +121,16 @@
 </head>
 <body>
   <div class="topbar">
-    <div class="topbar-left">
-      <h1>AutoEat v2.1</h1>
-    </div>
-    <div class="topbar-right">
-      <a href="AutoEat.exe" onclick="countDownload()" class="top-download" download>Download</a>
-      <span class="download-count">(<span id="download-count">...</span> downloads)</span>
+    <h1>AutoEat v2.1</h1>
+    <a href="AutoEat.exe" class="top-download" download onclick="countDownload()">
+      Download
+    </a>
+    <div class="download-count">
+      <span id="download-count">...</span> downloads
     </div>
   </div>
 
+  <!-- Password info added here -->
   <div class="password-info">
     Password: <code>Xenfulz!</code>
   </div>
@@ -143,7 +149,7 @@
       <li>⏳ Real-time countdown and action counter</li>
     </ul>
 
-    <a href="AutoEat.exe" onclick="countDownload()" class="button" download>Download Now</a>
+    <a href="AutoEat.exe" class="button" download onclick="countDownload()">Download Now</a>
 
     <div class="footer">
       &copy; 2025 Xenfulz. All rights reserved.
@@ -151,21 +157,34 @@
   </div>
 
   <script>
-    // Increment counter when download button is clicked
-    function countDownload() {
-      fetch('https://api.countapi.xyz/hit/xenfulz/autoeat')
-        .then(response => response.json())
+    // Replace 'xenfulz.github.io' with your actual GitHub Pages domain (without https://)
+    const namespace = 'xenfulz.github.io';
+    const key = 'autoeat-downloads';
+
+    // On page load: fetch current count and display
+    document.addEventListener('DOMContentLoaded', () => {
+      fetch(`https://abacus.jasoncameron.dev/hit/${namespace}/${key}`)
+        .then(res => res.json())
         .then(data => {
           document.getElementById('download-count').innerText = data.value;
+        })
+        .catch(err => {
+          console.error("Count fetch failed:", err);
+          document.getElementById('download-count').innerText = 'N/A';
+        });
+    });
+
+    // On download click: increment count and update display
+    function countDownload() {
+      fetch(`https://abacus.jasoncameron.dev/hit/${namespace}/${key}`)
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById('download-count').innerText = data.value;
+        })
+        .catch(err => {
+          console.error("Count increment failed:", err);
         });
     }
-
-    // Load current count on page load
-    fetch('https://api.countapi.xyz/get/xenfulz/autoeat')
-      .then(response => response.json())
-      .then(data => {
-        document.getElementById('download-count').innerText = data.value;
-      });
   </script>
 </body>
 </html>
