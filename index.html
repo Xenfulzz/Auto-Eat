@@ -27,6 +27,14 @@
       margin-right: auto;
       margin: 0;
     }
+    .download-count {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #00ff99;
+      user-select: none;
+      min-width: 50px;
+      text-align: center;
+    }
     .top-download {
       background-color: #00cc66;
       color: white;
@@ -44,14 +52,6 @@
     }
     .top-download:hover {
       background-color: #00e699;
-    }
-    .download-count {
-      font-weight: 600;
-      font-size: 0.95rem;
-      color: #00ff99;
-      user-select: none;
-      min-width: 50px;
-      text-align: center;
     }
     /* New password text style */
     .password-info {
@@ -122,12 +122,12 @@
 <body>
   <div class="topbar">
     <h1>AutoEat v2.1</h1>
-    <a href="AutoEat.exe" class="top-download" download onclick="countDownload()">
-      Download
-    </a>
     <div class="download-count">
       <span id="download-count">...</span> downloads
     </div>
+    <a href="AutoEat.exe" class="top-download" download onclick="countDownload()">
+      Download
+    </a>
   </div>
 
   <!-- Password info added here -->
