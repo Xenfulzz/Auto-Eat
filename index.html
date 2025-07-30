@@ -19,23 +19,22 @@
       align-items: center;
       padding: 20px 40px;
       background-color: #1e1e1e;
-      gap: 15px;
     }
-    .topbar h1 {
-      font-size: 1.5rem;
-      color: #00ff99;
-      margin: 0;
-      flex-shrink: 0;
-    }
-    .right-controls {
+    .topbar-left {
       display: flex;
       align-items: center;
       gap: 15px;
-    }
-    .download-count {
-      font-weight: 600;
-      font-size: 0.95rem;
       color: #00ff99;
+      font-weight: 600;
+      font-size: 1.5rem;
+    }
+    .download-counter {
+      background-color: #00cc66;
+      color: white;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 1rem;
       user-select: none;
       min-width: 50px;
       text-align: center;
@@ -50,13 +49,17 @@
       font-size: 0.95rem;
       text-decoration: none;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: background 0.3s ease, transform 0.1s ease;
       display: inline-flex;
       align-items: center;
       gap: 8px;
     }
     .top-download:hover {
       background-color: #00e699;
+      animation: pulse 1.5s infinite;
+    }
+    .top-download:active {
+      transform: scale(0.95);
     }
     /* New password text style */
     .password-info {
@@ -109,12 +112,26 @@
       font-weight: 600;
       font-size: 1rem;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: background 0.3s ease, transform 0.1s ease;
       text-decoration: none;
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
     }
     .button:hover {
       background-color: #00e699;
+      animation: pulse 1.5s infinite;
+    }
+    .button:active {
+      transform: scale(0.95);
+    }
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(0, 204, 102, 0.7);
+      }
+      50% {
+        box-shadow: 0 0 8px 8px rgba(0, 204, 102, 0);
+      }
     }
     .footer {
       margin-top: 80px;
@@ -122,19 +139,46 @@
       color: #777;
       text-align: center;
     }
+    /* Testimonials */
+    .testimonials {
+      max-width: 600px;
+      margin: 0 auto 40px auto;
+      text-align: left;
+      color: #a0f0b7;
+      font-style: italic;
+    }
+    .testimonials blockquote {
+      background-color: #222;
+      padding: 20px 25px;
+      border-left: 6px solid #00cc66;
+      margin: 20px 0;
+      border-radius: 6px;
+    }
+    /* Social links */
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      font-size: 1.8rem;
+      margin-top: 20px;
+    }
+    .social-icon {
+      color: #00cc66;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .social-icon:hover {
+      color: #00e699;
+    }
   </style>
 </head>
 <body>
   <div class="topbar">
-    <h1>AutoEat v2.1</h1>
-    <div class="right-controls">
-      <div class="download-count">
-        <span id="download-count">...</span> downloads
-      </div>
-      <a href="AutoEat.exe" class="top-download" download onclick="countDownload()">
-        Download
-      </a>
+    <div class="topbar-left">
+      <div class="download-counter" id="downloadCounter">0</div>
+      <h1>AutoEat v2.1</h1>
     </div>
+    <a href="AutoEat.exe" class="top-download" download id="topDownloadBtn">Download</a>
   </div>
 
   <!-- Password info added here -->
@@ -156,42 +200,55 @@
       <li>⏳ Real-time countdown and action counter</li>
     </ul>
 
-    <a href="AutoEat.exe" class="button" download onclick="countDownload()">Download Now</a>
+    <!-- Testimonials -->
+    <h2>User Testimonials</h2>
+    <div class="testimonials">
+      <blockquote>
+        "AutoEat saved me so much time, it’s incredible!" – <strong>Jane D.</strong>
+      </blockquote>
+      <blockquote>
+        "Super easy to use and works flawlessly." – <strong>Mike R.</strong>
+      </blockquote>
+      <blockquote>
+        "The best auto-key macro tool I've found." – <strong>Linda S.</strong>
+      </blockquote>
+    </div>
+
+    <a href="AutoEat.exe" class="button" download id="mainDownloadBtn">Download Now</a>
 
     <div class="footer">
       &copy; 2025 Xenfulz. All rights reserved.
+
+      <!-- Social links -->
+      <div class="social-links">
+        <a href="https://www.youtube.com/@Xenfulz" target="_blank" rel="noopener" aria-label="YouTube" class="social-icon">
+          ▶️
+        </a>
+        <a href="https://www.tiktok.com/@.xenfulz" target="_blank" rel="noopener" aria-label="TikTok" class="social-icon">
+          🎵
+        </a>
+      </div>
     </div>
   </div>
 
   <script>
-    // Replace 'xenfulz.github.io' with your actual GitHub Pages domain (without https://)
-    const namespace = 'xenfulz.github.io';
-    const key = 'autoeat-downloads';
-
-    // On page load: fetch current count and display
-    document.addEventListener('DOMContentLoaded', () => {
-      fetch(`https://abacus.jasoncameron.dev/hit/${namespace}/${key}`)
-        .then(res => res.json())
-        .then(data => {
-          document.getElementById('download-count').innerText = data.value;
-        })
-        .catch(err => {
-          console.error("Count fetch failed:", err);
-          document.getElementById('download-count').innerText = 'N/A';
-        });
-    });
-
-    // On download click: increment count and update display
-    function countDownload() {
-      fetch(`https://abacus.jasoncameron.dev/hit/${namespace}/${key}`)
-        .then(res => res.json())
-        .then(data => {
-          document.getElementById('download-count').innerText = data.value;
-        })
-        .catch(err => {
-          console.error("Count increment failed:", err);
-        });
+    // Simple download counter (localStorage-based)
+    function incrementCounter() {
+      let count = localStorage.getItem('downloadCount') || 0;
+      count = parseInt(count) + 1;
+      localStorage.setItem('downloadCount', count);
+      document.getElementById('downloadCounter').textContent = count;
     }
+
+    // Load counter on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedCount = localStorage.getItem('downloadCount') || 0;
+      document.getElementById('downloadCounter').textContent = savedCount;
+
+      // Attach event listeners to both download buttons
+      document.getElementById('topDownloadBtn').addEventListener('click', incrementCounter);
+      document.getElementById('mainDownloadBtn').addEventListener('click', incrementCounter);
+    });
   </script>
 </body>
 </html>
