@@ -20,10 +20,15 @@
       padding: 20px 40px;
       background-color: #1e1e1e;
     }
-    .topbar h1 {
+    .topbar-left h1 {
       font-size: 1.5rem;
       color: #00ff99;
       margin: 0;
+    }
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
     .top-download {
       background-color: #00cc66;
@@ -35,11 +40,15 @@
       font-size: 0.95rem;
       text-decoration: none;
       transition: background 0.3s ease;
+      cursor: pointer;
     }
     .top-download:hover {
       background-color: #00e699;
     }
-    /* New password text style */
+    .download-count {
+      color: #cccccc;
+      font-size: 0.85rem;
+    }
     .password-info {
       background-color: #222222;
       color: #00ff99;
@@ -107,11 +116,15 @@
 </head>
 <body>
   <div class="topbar">
-    <h1>AutoEat v2.1</h1>
-    <a href="AutoEat.exe" class="top-download" download>Download</a>
+    <div class="topbar-left">
+      <h1>AutoEat v2.1</h1>
+    </div>
+    <div class="topbar-right">
+      <a href="AutoEat.exe" onclick="countDownload()" class="top-download" download>Download</a>
+      <span class="download-count">(<span id="download-count">...</span> downloads)</span>
+    </div>
   </div>
 
-  <!-- Password info added here -->
   <div class="password-info">
     Password: <code>Xenfulz!</code>
   </div>
@@ -130,11 +143,29 @@
       <li>⏳ Real-time countdown and action counter</li>
     </ul>
 
-    <a href="AutoEat.exe" class="button" download>Download Now</a>
+    <a href="AutoEat.exe" onclick="countDownload()" class="button" download>Download Now</a>
 
     <div class="footer">
       &copy; 2025 Xenfulz. All rights reserved.
     </div>
   </div>
+
+  <script>
+    // Increment counter when download button is clicked
+    function countDownload() {
+      fetch('https://api.countapi.xyz/hit/xenfulz/autoeat')
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('download-count').innerText = data.value;
+        });
+    }
+
+    // Load current count on page load
+    fetch('https://api.countapi.xyz/get/xenfulz/autoeat')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('download-count').innerText = data.value;
+      });
+  </script>
 </body>
 </html>
