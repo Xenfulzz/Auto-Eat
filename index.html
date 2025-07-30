@@ -21,23 +21,37 @@
       background-color: #1e1e1e;
     }
     .topbar-left {
-      display: flex;
-      align-items: center;
-      gap: 15px;
       color: #00ff99;
       font-weight: 600;
       font-size: 1.5rem;
     }
-    .download-counter {
-      background-color: #00cc66;
-      color: white;
-      padding: 6px 14px;
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .download-counter-wrapper {
+      display: flex;
+      align-items: center;
+      background-color: #222;
       border-radius: 20px;
-      font-weight: 700;
+      padding: 6px 12px;
+      color: #00cc66;
+      font-weight: 600;
       font-size: 1rem;
       user-select: none;
-      min-width: 50px;
-      text-align: center;
+      min-width: 100px;
+      justify-content: center;
+    }
+    .download-counter-wrapper span {
+      margin-left: 8px;
+      color: white;
+    }
+    .download-counter {
+      font-weight: 700;
+      color: #00cc66;
+      min-width: 30px;
+      text-align: right;
     }
     .top-download {
       background-color: #00cc66;
@@ -154,31 +168,37 @@
       margin: 20px 0;
       border-radius: 6px;
     }
-    /* Social links */
+    /* Social links text */
     .social-links {
+      margin-top: 20px;
       display: flex;
       justify-content: center;
-      gap: 20px;
-      font-size: 1.8rem;
-      margin-top: 20px;
+      gap: 30px;
+      font-weight: 600;
     }
-    .social-icon {
+    .social-links a {
       color: #00cc66;
       text-decoration: none;
+      font-size: 1.1rem;
       transition: color 0.3s ease;
     }
-    .social-icon:hover {
+    .social-links a:hover {
       color: #00e699;
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
   <div class="topbar">
     <div class="topbar-left">
-      <div class="download-counter" id="downloadCounter">0</div>
       <h1>AutoEat v2.1</h1>
     </div>
-    <a href="AutoEat.exe" class="top-download" download id="topDownloadBtn">Download</a>
+    <div class="topbar-right">
+      <div class="download-counter-wrapper" aria-label="Download counter">
+        Downloads: <span class="download-counter" id="downloadCounter">0</span>
+      </div>
+      <a href="AutoEat.exe" class="top-download" download id="topDownloadBtn">Download</a>
+    </div>
   </div>
 
   <!-- Password info added here -->
@@ -221,12 +241,8 @@
 
       <!-- Social links -->
       <div class="social-links">
-        <a href="https://www.youtube.com/@Xenfulz" target="_blank" rel="noopener" aria-label="YouTube" class="social-icon">
-          ▶️
-        </a>
-        <a href="https://www.tiktok.com/@.xenfulz" target="_blank" rel="noopener" aria-label="TikTok" class="social-icon">
-          🎵
-        </a>
+        <a href="https://www.youtube.com/@Xenfulz" target="_blank" rel="noopener" aria-label="YouTube">YouTube</a>
+        <a href="https://www.tiktok.com/@.xenfulz" target="_blank" rel="noopener" aria-label="TikTok">TikTok</a>
       </div>
     </div>
   </div>
