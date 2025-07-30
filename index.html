@@ -131,10 +131,8 @@
       cursor: pointer;
       transition: background 0.3s ease, transform 0.1s ease;
       text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 20px; /* small spacing below button */
+      display: inline-block;
+      margin-bottom: 20px;
     }
     .button:hover {
       background-color: #00e699;
@@ -215,8 +213,8 @@
 
     <img src="AutoEat.png" alt="AutoEat Screenshot" class="screenshot" />
 
-    <!-- Moved download button here -->
-    <a href="AutoEat.exe" class="button" download id="mainDownloadBtn">Download Now</a>
+    <!-- Download button centered below image with proper margin -->
+    <a href="AutoEat.exe" class="button" download id="mainDownloadBtn" style="margin: 30px auto 40px auto;">Download Now</a>
 
     <h2>Features</h2>
     <ul class="features">
@@ -231,7 +229,7 @@
     <h2>User Testimonials</h2>
     <div class="testimonials">
       <blockquote>
-        "it’s a really useful macro, very helpful and really well made." – <strong>Jenwrenpen10</strong>
+        "it’s a really useful macro, very helpful and really well made." – <strong>jd.wren</strong>
       </blockquote>
       <blockquote>
         "Saved me sm especially in 99 nights in a forrest!" – <strong>hatreddc</strong>
