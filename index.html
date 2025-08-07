@@ -25,8 +25,13 @@
       margin: 0;
       line-height: 50px;
       color: #00ff99;
-      font-weight: 600;
-      font-size: 1.5rem;
+      font-weight: 700;
+      font-size: 1.6rem;
+      /* Subtle gradient text */
+      background: linear-gradient(90deg, #00ff99, #00cc66);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 4px rgba(0, 204, 102, 0.5);
     }
     .topbar-right {
       display: flex;
@@ -45,12 +50,40 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      position: relative;
+      cursor: help;
+      transition: box-shadow 0.3s ease;
+    }
+    .safe-badge:hover {
+      box-shadow: 0 0 8px 2px #00cc66;
     }
     .safe-badge svg {
       width: 18px;
       height: 18px;
       fill: #00cc66;
       flex-shrink: 0;
+    }
+    /* Tooltip for safe badge */
+    .safe-badge::after {
+      content: "Scanned & verified clean — 100% safe to download";
+      position: absolute;
+      bottom: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #222;
+      color: #00cc66;
+      font-size: 0.8rem;
+      padding: 4px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 10;
+    }
+    .safe-badge:hover::after {
+      opacity: 1;
+      pointer-events: auto;
     }
     .top-download {
       background-color: #00cc66;
@@ -74,6 +107,7 @@
     .top-download:active {
       transform: scale(0.95);
     }
+    /* Password info */
     .password-info {
       background-color: #222;
       color: #00cc66;
@@ -81,12 +115,15 @@
       font-size: 1.1rem;
       padding: 10px 16px;
       margin: 30px auto 40px auto;
-      max-width: 280px;
+      max-width: 320px;
       border-radius: 8px;
       border: 2px solid #00cc66;
       text-align: center;
       user-select: text;
       font-family: 'Inter', sans-serif;
+      position: relative;
+      display: inline-block;
+      cursor: default;
     }
     .password-info code {
       background-color: transparent;
@@ -97,6 +134,43 @@
       padding-right: 4px;
       font-family: 'Consolas', monospace, monospace;
     }
+    /* Tooltip icon for password */
+    .password-info .tooltip-icon {
+      display: inline-block;
+      margin-left: 8px;
+      width: 18px;
+      height: 18px;
+      fill: #00cc66;
+      vertical-align: middle;
+      cursor: help;
+      position: relative;
+    }
+    .password-info .tooltip-icon:hover + .tooltip-text {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    /* Tooltip text for password */
+    .tooltip-text {
+      position: absolute;
+      bottom: 110%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #222;
+      color: #00cc66;
+      font-size: 0.85rem;
+      padding: 6px 12px;
+      border-radius: 6px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      width: max-content;
+      max-width: 220px;
+      z-index: 10;
+      box-shadow: 0 0 8px rgba(0, 204, 102, 0.5);
+    }
+
+    /* Containers */
     .container {
       max-width: 800px;
       margin: 0 auto;
@@ -106,6 +180,12 @@
     h2 {
       font-size: 2rem;
       margin-top: 40px;
+      font-weight: 700;
+      /* Gradient text */
+      background: linear-gradient(90deg, #00ff99, #00cc66);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 6px rgba(0, 204, 102, 0.5);
     }
     p.subtitle {
       font-style: italic;
@@ -124,6 +204,13 @@
       text-align: left;
       margin: 20px auto 40px auto;
       max-width: 600px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .features.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
     .features li {
       margin: 10px 0;
@@ -150,26 +237,19 @@
     .button:active {
       transform: scale(0.95);
     }
-    @keyframes pulse {
-      0%, 100% {
-        box-shadow: 0 0 0 0 rgba(0, 204, 102, 0.7);
-      }
-      50% {
-        box-shadow: 0 0 8px 8px rgba(0, 204, 102, 0);
-      }
-    }
-    .footer {
-      margin-top: 80px;
-      font-size: 0.9rem;
-      color: #777;
-      text-align: center;
-    }
     .testimonials {
       max-width: 600px;
       margin: 60px auto 40px auto;
       text-align: left;
       color: #a0f0b7;
       font-style: italic;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .testimonials.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
     .testimonials blockquote {
       background-color: #222;
@@ -177,6 +257,12 @@
       border-left: 6px solid #00cc66;
       margin: 20px 0;
       border-radius: 6px;
+    }
+    .footer {
+      margin-top: 80px;
+      font-size: 0.9rem;
+      color: #777;
+      text-align: center;
     }
     .social-links {
       margin-top: 20px;
@@ -195,6 +281,14 @@
       color: #00e699;
       text-decoration: underline;
     }
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(0, 204, 102, 0.7);
+      }
+      50% {
+        box-shadow: 0 0 8px 8px rgba(0, 204, 102, 0);
+      }
+    }
   </style>
 </head>
 <body>
@@ -203,9 +297,9 @@
       <h1>AutoEat v2.1</h1>
     </div>
     <div class="topbar-right">
-      <div class="safe-badge" aria-label="Safety badge">
+      <div class="safe-badge" aria-label="Download safety information" tabindex="0" role="tooltip">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zM11 17l-5-5 1.41-1.41L11 14.17l6.59-6.59L19 9l-8 8z"/>
+          <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zM12 3.3l6 2.67v5.15c0 4.02-2.77 7.74-6 8.86-3.23-1.12-6-4.84-6-8.86V5.97L12 3.3z"></path>
         </svg>
         100% Safe
       </div>
@@ -213,8 +307,15 @@
     </div>
   </div>
 
-  <div class="password-info" role="alert" aria-live="polite">
+  <!-- Password info with tooltip -->
+  <div class="password-info">
     Password: <code>Xenfulz!</code>
+    <svg class="tooltip-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm.75 15h-1.5v-1.5h1.5V17zm0-3h-1.5V7h1.5v7z"/>
+    </svg>
+    <div class="tooltip-text" role="tooltip">
+      Use this password to unlock the application after download.
+    </div>
   </div>
 
   <div class="container">
@@ -222,10 +323,11 @@
 
     <img src="AutoEat.png" alt="AutoEat Screenshot" class="screenshot" />
 
+    <!-- Download button centered below image -->
     <a href="AutoEat.exe" class="button" download id="mainDownloadBtn">Download Now</a>
 
     <h2>Features</h2>
-    <ul class="features">
+    <ul class="features" id="featuresList">
       <li>✅ Secure password access</li>
       <li>⏱ Custom interval and key simulation</li>
       <li>⚛ Webhook support with @everyone toggle</li>
@@ -233,8 +335,9 @@
       <li>⏳ Real-time countdown and action counter</li>
     </ul>
 
+    <!-- Testimonials -->
     <h2>User Testimonials</h2>
-    <div class="testimonials">
+    <div class="testimonials" id="testimonialsSection">
       <blockquote>
         "it’s a really useful macro, very helpful and really well made." – <strong>jd.wren</strong>
       </blockquote>
@@ -248,6 +351,8 @@
 
     <div class="footer">
       &copy; 2025 Xenfulz. All rights reserved.
+
+      <!-- Social links -->
       <div class="social-links">
         <a href="https://www.youtube.com/@Xenfulz" target="_blank" rel="noopener" aria-label="YouTube">YouTube</a>
         <a href="https://www.tiktok.com/@.xenfulz" target="_blank" rel="noopener" aria-label="TikTok">TikTok</a>
@@ -256,7 +361,24 @@
   </div>
 
   <script>
-    // Removed download counter code since no longer needed
+    // Fade-in on scroll function
+    function fadeInOnScroll(el) {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.85) {
+        el.classList.add('visible');
+      }
+    }
+
+    document.addEventListener('scroll', () => {
+      fadeInOnScroll(document.getElementById('featuresList'));
+      fadeInOnScroll(document.getElementById('testimonialsSection'));
+    });
+
+    // Trigger fade in on load in case content is already in view
+    window.addEventListener('load', () => {
+      fadeInOnScroll(document.getElementById('featuresList'));
+      fadeInOnScroll(document.getElementById('testimonialsSection'));
+    });
   </script>
 </body>
 </html>
