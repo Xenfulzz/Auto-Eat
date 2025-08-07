@@ -75,14 +75,32 @@
       transform: scale(0.95);
     }
     .password-info {
-      background-color: #222222;
-      color: #00ff99;
+      background-color: #00cc66;
+      color: #121212;
+      font-weight: 700;
+      font-size: 1.3rem;
+      padding: 16px 24px;
+      margin: 30px auto 40px auto;
+      max-width: 300px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px #00cc66aa;
       text-align: center;
-      font-weight: 600;
-      font-size: 1rem;
-      padding: 12px 0;
-      letter-spacing: 0.05em;
       user-select: text;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+    .password-info code {
+      background-color: #e0ffe6;
+      color: #007733;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 1.3rem;
+    }
+    .password-icon {
+      font-size: 1.6rem;
     }
     .container {
       max-width: 800px;
@@ -200,8 +218,9 @@
     </div>
   </div>
 
-  <div class="password-info">
-    Password: <code>Xenfulz!</code>
+  <div class="password-info" role="alert" aria-live="polite">
+    <strong>Password:</strong> <code>Xenfulz!</code>
+    <span class="password-icon" aria-hidden="true">🔑</span>
   </div>
 
   <div class="container">
@@ -241,5 +260,9 @@
       </div>
     </div>
   </div>
+
+  <script>
+    // No more download counter, so script removed
+  </script>
 </body>
 </html>
