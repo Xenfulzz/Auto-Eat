@@ -33,29 +33,6 @@
       align-items: center;
       gap: 15px;
     }
-    .download-counter-wrapper {
-      display: flex;
-      align-items: center;
-      background-color: #222;
-      border-radius: 20px;
-      padding: 6px 12px;
-      color: #00cc66;
-      font-weight: 600;
-      font-size: 1rem;
-      user-select: none;
-      min-width: 100px;
-      justify-content: center;
-    }
-    .download-counter-wrapper span {
-      margin-left: 8px;
-      color: white;
-    }
-    .download-counter {
-      font-weight: 700;
-      color: #00cc66;
-      min-width: 30px;
-      text-align: right;
-    }
     .top-download {
       background-color: #00cc66;
       color: white;
@@ -78,7 +55,6 @@
     .top-download:active {
       transform: scale(0.95);
     }
-    /* New password text style */
     .password-info {
       background-color: #222222;
       color: #00ff99;
@@ -156,7 +132,6 @@
       color: #777;
       text-align: center;
     }
-    /* Testimonials */
     .testimonials {
       max-width: 600px;
       margin: 60px auto 40px auto;
@@ -171,7 +146,6 @@
       margin: 20px 0;
       border-radius: 6px;
     }
-    /* Social links text */
     .social-links {
       margin-top: 20px;
       display: flex;
@@ -197,14 +171,10 @@
       <h1>AutoEat v2.1</h1>
     </div>
     <div class="topbar-right">
-      <div class="download-counter-wrapper" aria-label="Download counter">
-        Downloads: <span class="download-counter" id="downloadCounter">0</span>
-      </div>
       <a href="AutoEat.exe" class="top-download" download id="topDownloadBtn">Download</a>
     </div>
   </div>
 
-  <!-- Password info added here -->
   <div class="password-info">
     Password: <code>Xenfulz!</code>
   </div>
@@ -214,7 +184,6 @@
 
     <img src="AutoEat.png" alt="AutoEat Screenshot" class="screenshot" />
 
-    <!-- Download button centered below image with proper margin -->
     <a href="AutoEat.exe" class="button" download id="mainDownloadBtn">Download Now</a>
 
     <h2>Features</h2>
@@ -226,7 +195,6 @@
       <li>⏳ Real-time countdown and action counter</li>
     </ul>
 
-    <!-- Testimonials -->
     <h2>User Testimonials</h2>
     <div class="testimonials">
       <blockquote>
@@ -242,8 +210,6 @@
 
     <div class="footer">
       &copy; 2025 Xenfulz. All rights reserved.
-
-      <!-- Social links -->
       <div class="social-links">
         <a href="https://www.youtube.com/@Xenfulz" target="_blank" rel="noopener" aria-label="YouTube">YouTube</a>
         <a href="https://www.tiktok.com/@.xenfulz" target="_blank" rel="noopener" aria-label="TikTok">TikTok</a>
@@ -251,24 +217,6 @@
     </div>
   </div>
 
-  <script>
-    // Simple download counter (localStorage-based)
-    function incrementCounter() {
-      let count = localStorage.getItem('downloadCount') || 0;
-      count = parseInt(count) + 1;
-      localStorage.setItem('downloadCount', count);
-      document.getElementById('downloadCounter').textContent = count;
-    }
-
-    // Load counter on page load
-    document.addEventListener('DOMContentLoaded', () => {
-      const savedCount = localStorage.getItem('downloadCount') || 0;
-      document.getElementById('downloadCounter').textContent = savedCount;
-
-      // Attach event listeners to both download buttons
-      document.getElementById('topDownloadBtn').addEventListener('click', incrementCounter);
-      document.getElementById('mainDownloadBtn').addEventListener('click', incrementCounter);
-    });
-  </script>
+  <!-- No JS needed anymore -->
 </body>
 </html>
