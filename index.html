@@ -25,13 +25,9 @@
       margin: 0;
       line-height: 50px;
       color: #00ff99;
-      font-weight: 700;
-      font-size: 1.6rem;
-      /* Subtle gradient text */
-      background: linear-gradient(90deg, #00ff99, #00cc66);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 4px rgba(0, 204, 102, 0.5);
+      font-weight: 600;
+      font-size: 1.5rem;
+      text-shadow: 0 0 8px #00ff99aa;
     }
     .topbar-right {
       display: flex;
@@ -39,51 +35,30 @@
       gap: 15px;
     }
     .safe-badge {
-      background-color: #2a2a2a;
-      color: white;
-      font-weight: 600;
-      font-size: 0.95rem;
-      padding: 6px 14px;
-      border-radius: 20px;
-      border: 1px solid #00cc66;
-      user-select: none;
       display: flex;
       align-items: center;
-      gap: 8px;
-      position: relative;
-      cursor: help;
+      background-color: #222;
+      border-radius: 20px;
+      padding: 6px 12px;
+      color: #00cc66;
+      font-weight: 600;
+      font-size: 1rem;
+      user-select: none;
+      min-width: 110px;
+      justify-content: center;
+      cursor: default;
       transition: box-shadow 0.3s ease;
     }
-    .safe-badge:hover {
-      box-shadow: 0 0 8px 2px #00cc66;
-    }
     .safe-badge svg {
-      width: 18px;
-      height: 18px;
+      width: 20px;
+      height: 20px;
+      margin-right: 8px;
       fill: #00cc66;
-      flex-shrink: 0;
     }
-    /* Tooltip for safe badge */
-    .safe-badge::after {
-      content: "Scanned & verified clean — 100% safe to download";
-      position: absolute;
-      bottom: -30px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #222;
-      color: #00cc66;
-      font-size: 0.8rem;
-      padding: 4px 8px;
-      border-radius: 6px;
-      white-space: nowrap;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      z-index: 10;
-    }
-    .safe-badge:hover::after {
-      opacity: 1;
-      pointer-events: auto;
+    .safe-badge:hover,
+    .safe-badge:focus {
+      box-shadow: 0 0 12px 3px #00cc66bb;
+      outline: none;
     }
     .top-download {
       background-color: #00cc66;
@@ -107,14 +82,14 @@
     .top-download:active {
       transform: scale(0.95);
     }
-    /* Password info */
+    /* Centered password box */
     .password-info {
       background-color: #222;
       color: #00cc66;
       font-weight: 600;
       font-size: 1.1rem;
       padding: 10px 16px;
-      margin: 30px auto 40px auto;
+      margin: 30px auto 40px auto; /* centers horizontally */
       max-width: 320px;
       border-radius: 8px;
       border: 2px solid #00cc66;
@@ -126,68 +101,55 @@
       cursor: default;
     }
     .password-info code {
-      background-color: transparent;
+      font-family: monospace;
+      background: #003300;
+      padding: 2px 6px;
+      border-radius: 4px;
       color: #00ff99;
       font-weight: 700;
-      font-size: 1.15rem;
-      padding-left: 4px;
-      padding-right: 4px;
-      font-family: 'Consolas', monospace, monospace;
     }
-    /* Tooltip icon for password */
-    .password-info .tooltip-icon {
-      display: inline-block;
-      margin-left: 8px;
+    .tooltip-icon {
       width: 18px;
       height: 18px;
       fill: #00cc66;
+      margin-left: 8px;
       vertical-align: middle;
       cursor: help;
       position: relative;
     }
-    .password-info .tooltip-icon:hover + .tooltip-text {
+    .tooltip-text {
+      visibility: hidden;
+      width: 240px;
+      background-color: #00cc66;
+      color: #121212;
+      text-align: center;
+      border-radius: 6px;
+      padding: 8px 12px;
+      position: absolute;
+      z-index: 100;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-weight: 600;
+      font-size: 0.9rem;
+      user-select: none;
+      pointer-events: none;
+    }
+    .password-info:hover .tooltip-text,
+    .password-info:focus-within .tooltip-text {
+      visibility: visible;
       opacity: 1;
       pointer-events: auto;
     }
-    /* Tooltip text for password */
-    .tooltip-text {
-      position: absolute;
-      bottom: 110%;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #222;
-      color: #00cc66;
-      font-size: 0.85rem;
-      padding: 6px 12px;
-      border-radius: 6px;
-      white-space: nowrap;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      width: max-content;
-      max-width: 220px;
-      z-index: 10;
-      box-shadow: 0 0 8px rgba(0, 204, 102, 0.5);
-    }
-
-    /* Containers */
     .container {
       max-width: 800px;
       margin: 0 auto;
       padding: 40px 20px;
       text-align: center;
     }
-    h2 {
-      font-size: 2rem;
-      margin-top: 40px;
-      font-weight: 700;
-      /* Gradient text */
-      background: linear-gradient(90deg, #00ff99, #00cc66);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 6px rgba(0, 204, 102, 0.5);
-    }
-    p.subtitle {
+    .subtitle {
       font-style: italic;
       margin-top: -10px;
       color: #cccccc;
@@ -237,6 +199,20 @@
     .button:active {
       transform: scale(0.95);
     }
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(0, 204, 102, 0.7);
+      }
+      50% {
+        box-shadow: 0 0 8px 8px rgba(0, 204, 102, 0);
+      }
+    }
+    .footer {
+      margin-top: 80px;
+      font-size: 0.9rem;
+      color: #777;
+      text-align: center;
+    }
     .testimonials {
       max-width: 600px;
       margin: 60px auto 40px auto;
@@ -258,12 +234,6 @@
       margin: 20px 0;
       border-radius: 6px;
     }
-    .footer {
-      margin-top: 80px;
-      font-size: 0.9rem;
-      color: #777;
-      text-align: center;
-    }
     .social-links {
       margin-top: 20px;
       display: flex;
@@ -280,14 +250,6 @@
     .social-links a:hover {
       color: #00e699;
       text-decoration: underline;
-    }
-    @keyframes pulse {
-      0%, 100% {
-        box-shadow: 0 0 0 0 rgba(0, 204, 102, 0.7);
-      }
-      50% {
-        box-shadow: 0 0 8px 8px rgba(0, 204, 102, 0);
-      }
     }
   </style>
 </head>
@@ -307,8 +269,8 @@
     </div>
   </div>
 
-  <!-- Password info with tooltip -->
-  <div class="password-info">
+  <!-- Password info with tooltip, centered -->
+  <div class="password-info" tabindex="0">
     Password: <code>Xenfulz!</code>
     <svg class="tooltip-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
       <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm.75 15h-1.5v-1.5h1.5V17zm0-3h-1.5V7h1.5v7z"/>
@@ -374,7 +336,6 @@
       fadeInOnScroll(document.getElementById('testimonialsSection'));
     });
 
-    // Trigger fade in on load in case content is already in view
     window.addEventListener('load', () => {
       fadeInOnScroll(document.getElementById('featuresList'));
       fadeInOnScroll(document.getElementById('testimonialsSection'));
