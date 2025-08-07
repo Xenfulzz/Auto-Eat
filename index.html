@@ -2,315 +2,430 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>AutoEat v2.1 by Xenfulz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
-    :root {
-      --neon-green: #00ff99;
-      --neon-shadow: rgba(0, 255, 153, 0.7);
-      --pulse-duration: 1.5s;
-    }
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
       background-color: #121212;
       color: #f0f0f0;
+      padding: 0;
+      text-align: center;
     }
     .topbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px 30px;
+      padding: 10px 30px;
       background-color: #1e1e1e;
-      box-shadow: 0 0 20px var(--neon-green);
+      height: 50px;
+      max-width: 800px;
+      margin: 0 auto;
     }
     .topbar-left h1 {
       margin: 0;
-      font-size: 2rem;
-      background: linear-gradient(90deg, var(--neon-green), #00cc66, var(--neon-green));
-      background-size: 200%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: shift 4s infinite alternate;
-      text-shadow: 0 0 10px var(--neon-green);
-      position: relative;
-    }
-    @keyframes shift {
-      0% { background-position: 0%; }
-      100% { background-position: 200%; }
+      line-height: 50px;
+      color: #00ff99;
+      font-weight: 600;
+      font-size: 1.8rem;
+      text-shadow: 0 0 12px #00ff99aa, 0 0 20px #00ff99bb;
+      user-select: none;
     }
     .topbar-right {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 15px;
+      position: relative;
     }
     .safe-badge {
-      position: relative;
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      background: #222;
-      padding: 6px 12px;
+      background-color: #222;
       border-radius: 20px;
-      color: var(--neon-green);
-      font-weight: 600;
-      text-shadow: 0 0 6px var(--neon-green);
+      padding: 6px 14px;
+      color: #00cc66;
+      font-weight: 700;
+      font-size: 1rem;
+      user-select: none;
+      min-width: 120px;
+      justify-content: center;
       cursor: default;
-      transition: box-shadow 0.3s ease;
-    }
-    .safe-badge:hover {
-      box-shadow: 0 0 12px var(--neon-green), 0 0 20px var(--neon-shadow);
+      box-shadow: 0 0 8px #00cc66bb;
+      position: relative;
+      transition: box-shadow 0.4s ease;
     }
     .safe-badge svg {
-      width: 20px; height: 20px;
+      width: 20px;
+      height: 20px;
       margin-right: 8px;
-      fill: var(--neon-green);
+      fill: #00cc66;
+      filter: drop-shadow(0 0 3px #00cc66);
     }
-    .safe-badge::after {
-      content: "Scanned & Verified";
-      position: absolute;
-      bottom: -30px; left: 50%;
-      transform: translateX(-50%);
-      background: var(--neon-green);
+    .safe-badge:hover,
+    .safe-badge:focus {
+      box-shadow: 0 0 18px 6px #00ff99cc;
+      outline: none;
+    }
+    /* Tooltip for safe badge */
+    .safe-badge-tooltip {
+      visibility: hidden;
+      width: 220px;
+      background-color: #00cc66;
       color: #121212;
-      padding: 5px 10px;
-      border-radius: 6px;
-      font-size: 0.8rem;
+      text-align: center;
+      border-radius: 8px;
+      padding: 10px 14px;
+      position: absolute;
+      bottom: -60px;
+      left: 50%;
+      transform: translateX(-50%);
       opacity: 0;
+      transition: opacity 0.3s ease;
+      font-weight: 600;
+      font-size: 0.9rem;
       pointer-events: none;
-      transition: opacity 0.2s ease;
-      white-space: nowrap;
+      user-select: none;
+      box-shadow: 0 0 12px #00cc66cc;
+      z-index: 100;
     }
-    .safe-badge:hover::after {
+    .safe-badge:hover + .safe-badge-tooltip,
+    .safe-badge:focus + .safe-badge-tooltip {
+      visibility: visible;
       opacity: 1;
+      pointer-events: auto;
     }
     .top-download {
-      background-color: var(--neon-green);
-      padding: 10px 20px;
-      border-radius: 8px;
+      background-color: #00cc66;
+      color: white;
+      padding: 10px 22px;
+      border: none;
+      border-radius: 6px;
       font-weight: 600;
-      color: #121212;
+      font-size: 1rem;
       text-decoration: none;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.1s ease;
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      box-shadow: 0 0 10px var(--neon-green);
-      transition: transform 0.1s ease, box-shadow 0.3s ease;
-      animation: pulse  var(--pulse-duration) infinite;
+      box-shadow: 0 0 12px #00cc66bb;
+      user-select: none;
     }
     .top-download:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px var(--neon-green);
+      background-color: #00e699;
+      animation: pulse 1.5s infinite;
     }
-    @keyframes pulse {
-      0%, 100% { box-shadow: 0 0 10px var(--neon-green); }
-      50% { box-shadow: 0 0 25px var(--neon-green); }
+    .top-download:active {
+      transform: scale(0.95);
     }
+    /* Password box */
     .password-info {
-      position: relative;
-      margin: 40px auto;
-      background: #1e1e1e;
-      padding: 12px 20px;
-      border-radius: 8px;
-      border: 2px solid var(--neon-green);
-      color: var(--neon-green);
-      font-weight: 600;
-      font-size: 1.2rem;
+      background-color: #222;
+      color: #00cc66;
+      font-weight: 700;
+      font-size: 1.3rem;
+      padding: 14px 24px;
+      margin: 40px auto 50px auto;
+      max-width: 360px;
+      border-radius: 12px;
+      border: 2.5px solid #00cc66;
       text-align: center;
-      max-width: fit-content;
-      box-shadow: 0 0 10px var(--neon-green);
-      display: flex;
+      user-select: text;
+      font-family: 'Inter', sans-serif;
+      position: relative;
+      display: inline-flex;
       align-items: center;
-      gap: 6px;
+      justify-content: center;
+      gap: 12px;
+      cursor: default;
+      box-shadow: 0 0 14px #00cc66aa;
     }
     .password-info code {
-      background: #003300;
-      padding: 2px 6px;
-      border-radius: 4px;
       font-family: monospace;
-      font-weight: 700;
-      color: var(--neon-green);
-    }
-    .copy-btn {
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      fill: var(--neon-green);
-      transition: transform 0.1s ease;
-    }
-    .copy-btn:hover {
-      transform: scale(1.2);
-    }
-    .copy-tooltip {
-      position: absolute;
-      top: -30px; right: 0%;
-      background: var(--neon-green);
-      color: #121212;
+      background: #003300;
       padding: 4px 8px;
-      border-radius: 4px;
-      font-size: 0.8rem;
+      border-radius: 6px;
+      color: #00ff99;
+      font-weight: 800;
+      font-size: 1.3rem;
+      user-select: all;
+      box-shadow: 0 0 10px #00ff9977 inset;
+    }
+    .tooltip-icon {
+      width: 20px;
+      height: 20px;
+      fill: #00cc66;
+      cursor: help;
+      position: relative;
+      flex-shrink: 0;
+      filter: drop-shadow(0 0 2px #00cc66);
+    }
+    /* Tooltip text for password */
+    .tooltip-text {
+      visibility: hidden;
+      width: 260px;
+      background-color: #00cc66;
+      color: #121212;
+      text-align: center;
+      border-radius: 8px;
+      padding: 10px 14px;
+      position: absolute;
+      bottom: 120%;
+      left: 50%;
+      transform: translateX(-50%);
       opacity: 0;
+      transition: opacity 0.3s ease;
+      font-weight: 700;
+      font-size: 1rem;
       pointer-events: none;
-      transition: opacity 0.2s ease;
+      user-select: none;
+      box-shadow: 0 0 14px #00cc66cc;
+      z-index: 100;
+      white-space: normal;
     }
-    .copy-btn:focus + .copy-tooltip,
-    .copy-btn:hover + .copy-tooltip {
+    .password-info:hover .tooltip-text,
+    .password-info:focus-within .tooltip-text {
+      visibility: visible;
       opacity: 1;
+      pointer-events: auto;
     }
+
     .container {
       max-width: 800px;
-      margin: 0 auto;
-      padding: 0 20px 60px 20px;
-      text-align: center;
+      margin: 0 auto 60px auto;
+      padding: 40px 20px 60px 20px;
     }
     .subtitle {
       font-style: italic;
-      color: #cccccc;
       margin-top: -10px;
+      color: #a0f0b7;
+      text-shadow: 0 0 6px #00cc66bb;
+      user-select: none;
     }
     .screenshot {
-      margin: 30px auto;
+      display: block;
+      margin: 30px auto 40px auto;
       max-width: 600px;
       width: 100%;
       border-radius: 12px;
-      box-shadow: 0 0 20px var(--neon-green);
+      box-shadow: 0 0 30px rgba(0,255,153,0.3);
+      transition: transform 0.3s ease;
+      cursor: default;
     }
-    h2 {
-      font-size: 1.8rem;
-      background: linear-gradient(90deg, var(--neon-green), #00cc66);
-      background-size: 200%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: shift 4s infinite alternate;
-      text-shadow: 0 0 6px var(--neon-green);
-      margin-top: 40px;
+    .screenshot:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 40px #00ff99cc;
     }
-    .features, .testimonials {
+    .features {
+      text-align: left;
+      margin: 20px auto 40px auto;
+      max-width: 600px;
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.8s ease, transform 0.8s ease;
+      color: #c3f9d6;
+      font-weight: 600;
+      font-size: 1.1rem;
+      list-style: none;
+      padding-left: 0;
+      user-select: none;
     }
-    .features.visible, .testimonials.visible {
+    .features.visible {
       opacity: 1;
       transform: translateY(0);
     }
     .features li {
-      margin: 10px 0;
+      margin: 12px 0;
       line-height: 1.6;
+      position: relative;
+      padding-left: 28px;
     }
-    .testimonials blockquote {
-      background: #222;
-      padding: 18px;
-      margin: 20px 0;
-      border-left: 6px solid var(--neon-green);
-      border-radius: 6px;
-      color: #a0f0b7;
-      font-style: italic;
+    .features li::before {
+      content: '✅';
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-size: 1.2rem;
+      filter: drop-shadow(0 0 3px #00cc66);
     }
     .button {
-      margin: 20px auto;
-      background-color: var(--neon-green);
-      color: #121212;
-      padding: 14px 28px;
-      border-radius: 8px;
-      font-weight: 600;
       display: inline-block;
-      box-shadow: 0 0 12px var(--neon-green);
+      margin: 0 auto 50px auto;
+      background-color: #00cc66;
+      color: white;
+      padding: 15px 36px;
+      border: none;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1.15rem;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease;
       text-decoration: none;
-      transition: transform 0.1s ease, box-shadow 0.3s ease;
-      animation: pulse var(--pulse-duration) infinite;
+      box-shadow: 0 0 14px #00cc66cc;
+      user-select: none;
     }
     .button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px var(--neon-green);
+      background-color: #00e699;
+      animation: pulse 1.5s infinite;
+      box-shadow: 0 0 24px #00ff99cc;
+    }
+    .button:active {
+      transform: scale(0.95);
+    }
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(0, 204, 102, 0.7);
+      }
+      50% {
+        box-shadow: 0 0 12px 12px rgba(0, 204, 102, 0);
+      }
     }
     .footer {
-      margin-top: 60px;
-      color: #777;
+      margin-top: 80px;
+      font-size: 0.95rem;
+      color: #555;
+      text-align: center;
+      user-select: none;
+    }
+    .testimonials {
+      max-width: 600px;
+      margin: 60px auto 40px auto;
+      text-align: left;
+      color: #a0f0b7;
+      font-style: italic;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+      user-select: none;
+    }
+    .testimonials.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .testimonials blockquote {
+      background-color: #222;
+      padding: 22px 28px;
+      border-left: 6px solid #00cc66;
+      margin: 22px 0;
+      border-radius: 8px;
+      box-shadow: 0 0 12px #00cc66bb;
     }
     .social-links {
       margin-top: 20px;
       display: flex;
       justify-content: center;
-      gap: 25px;
+      gap: 30px;
       font-weight: 600;
+      user-select: none;
     }
     .social-links a {
-      color: var(--neon-green);
+      color: #00cc66;
       text-decoration: none;
+      font-size: 1.15rem;
       transition: color 0.3s ease;
     }
     .social-links a:hover {
       color: #00e699;
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <div class="topbar">
-    <div><h1>AutoEat v2.1</h1></div>
+  <div class="topbar" role="banner">
+    <div class="topbar-left">
+      <h1>AutoEat v2.1</h1>
+    </div>
     <div class="topbar-right">
-      <div class="safe-badge">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zM12 3.3l6 2.67v5.15c0 4.02-2.77 7.74-6 8.86-3.23-1.12-6-4.84-6-8.86V5.97L12 3.3z"/></svg>
+      <div class="safe-badge" aria-label="Download safety information" tabindex="0" role="tooltip">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" >
+          <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zM12 3.3l6 2.67v5.15c0 4.02-2.77 7.74-6 8.86-3.23-1.12-6-4.84-6-8.86V5.97L12 3.3z"/>
+        </svg>
         100% Safe
       </div>
-      <a href="AutoEat.exe" class="top-download" download>Download</a>
+      <div class="safe-badge-tooltip" role="tooltip" id="safeBadgeTooltip">
+        This download is verified safe and virus-free.
+      </div>
+      <a href="AutoEat.exe" class="top-download" download id="topDownloadBtn" aria-label="Download AutoEat executable">
+        Download
+      </a>
     </div>
   </div>
 
-  <div class="password-info">
-    <code id="pw">Xenfulz!</code>
-    <button class="copy-btn" aria-label="Copy password" onclick="copyPass()">📋</button>
-    <div class="copy-tooltip">Click to copy</div>
+  <!-- Password info with tooltip, centered -->
+  <div class="password-info" tabindex="0" aria-describedby="passwordTooltip" role="region" aria-label="Password information">
+    Password: <code>Xenfulz!</code>
+    <svg class="tooltip-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm.75 15h-1.5v-1.5h1.5V17zm0-3h-1.5V7h1.5v7z"/>
+    </svg>
+    <div class="tooltip-text" role="tooltip" id="passwordTooltip">
+      Use this password to unlock the application after download.
+    </div>
   </div>
 
   <div class="container">
-    <p class="subtitle">The smart auto‑key macro tool by Xenfulz</p>
-    <img src="AutoEat.png" alt="Screenshot" class="screenshot" />
-    <a href="AutoEat.exe" class="button" download>Download Now</a>
+    <p class="subtitle">The smart auto-key macro tool by Xenfulz</p>
+
+    <img src="AutoEat.png" alt="AutoEat Screenshot" class="screenshot" />
+
+    <!-- Download button centered below image -->
+    <a href="AutoEat.exe" class="button" download id="mainDownloadBtn" aria-label="Download AutoEat executable">
+      Download Now
+    </a>
 
     <h2>Features</h2>
-    <ul class="features" id="features">
-      <li>✅ Secure password access</li>
-      <li>⏱ Custom interval & key simulation</li>
-      <li>⚛ Webhook support with @everyone toggle</li>
-      <li>⭐ Dark & light theme toggle</li>
-      <li>⏳ Real‑time countdown & action counter</li>
+    <ul class="features" id="featuresList">
+      <li>Secure password access</li>
+      <li>Custom interval and key simulation</li>
+      <li>Webhook support with @everyone toggle</li>
+      <li>Dark and light theme toggle</li>
+      <li>Real-time countdown and action counter</li>
     </ul>
 
+    <!-- Testimonials -->
     <h2>User Testimonials</h2>
-    <div class="testimonials" id="testis">
-      <blockquote>"It’s a really useful macro, well made." – <strong>jd.wren</strong></blockquote>
-      <blockquote>"Saved me sm especially in 99 nights in a forest!" – <strong>hatreddc</strong></blockquote>
-      <blockquote>"The best auto‑key macro tool I've found." – <strong>elmo2129</strong></blockquote>
+    <div class="testimonials" id="testimonialsSection">
+      <blockquote>
+        "It’s a really useful macro, very helpful and really well made." – <strong>jd.wren</strong>
+      </blockquote>
+      <blockquote>
+        "Saved me sm especially in 99 nights in a forest!" – <strong>hatreddc</strong>
+      </blockquote>
+      <blockquote>
+        "The best auto-key macro tool I've found." – <strong>elmo2129</strong>
+      </blockquote>
     </div>
 
     <div class="footer">
       &copy; 2025 Xenfulz. All rights reserved.
+
+      <!-- Social links -->
       <div class="social-links">
-        <a href="#">YouTube</a>
-        <a href="#">TikTok</a>
+        <a href="https://www.youtube.com/@Xenfulz" target="_blank" rel="noopener" aria-label="YouTube">YouTube</a>
+        <a href="https://www.tiktok.com/@.xenfulz" target="_blank" rel="noopener" aria-label="TikTok">TikTok</a>
       </div>
     </div>
   </div>
 
   <script>
-    function copyPass() {
-      const pw = document.getElementById('pw').textContent;
-      navigator.clipboard.writeText(pw).then(() => {
-        alert('Password copied!');
-      });
-    }
-    function fadeIn(el) {
-      if (!el.classList.contains('visible') && el.getBoundingClientRect().top < window.innerHeight * 0.9) {
+    // Fade-in on scroll function
+    function fadeInOnScroll(el) {
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.85) {
         el.classList.add('visible');
       }
     }
-    window.addEventListener('scroll', () => {
-      fadeIn(document.getElementById('features'));
-      fadeIn(document.getElementById('testis'));
+
+    document.addEventListener('scroll', () => {
+      fadeInOnScroll(document.getElementById('featuresList'));
+      fadeInOnScroll(document.getElementById('testimonialsSection'));
     });
+
     window.addEventListener('load', () => {
-      fadeIn(document.getElementById('features'));
-      fadeIn(document.getElementById('testis'));
+      fadeInOnScroll(document.getElementById('featuresList'));
+      fadeInOnScroll(document.getElementById('testimonialsSection'));
     });
   </script>
 </body>
