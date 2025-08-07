@@ -11,8 +11,8 @@
       font-family: 'Inter', sans-serif;
       background-color: #121212;
       color: #f0f0f0;
-      padding: 0;
     }
+
     .topbar {
       display: flex;
       justify-content: space-between;
@@ -21,6 +21,7 @@
       background-color: #1e1e1e;
       height: 50px;
     }
+
     .topbar-left h1 {
       margin: 0;
       line-height: 50px;
@@ -29,11 +30,14 @@
       font-size: 1.5rem;
       text-shadow: 0 0 8px #00ff99aa;
     }
+
     .topbar-right {
       display: flex;
       align-items: center;
       gap: 15px;
+      position: relative;
     }
+
     .safe-badge {
       display: flex;
       align-items: center;
@@ -46,20 +50,41 @@
       user-select: none;
       min-width: 110px;
       justify-content: center;
+      position: relative;
       cursor: default;
-      transition: box-shadow 0.3s ease;
     }
+
     .safe-badge svg {
       width: 20px;
       height: 20px;
       margin-right: 8px;
       fill: #00cc66;
     }
-    .safe-badge:hover,
-    .safe-badge:focus {
-      box-shadow: 0 0 12px 3px #00cc66bb;
-      outline: none;
+
+    .safe-badge:hover .safe-tooltip,
+    .safe-badge:focus-within .safe-tooltip {
+      opacity: 1;
+      visibility: visible;
     }
+
+    .safe-tooltip {
+      position: absolute;
+      top: 110%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #00cc66;
+      color: #121212;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 6px 10px;
+      border-radius: 6px;
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease;
+      z-index: 10;
+    }
+
     .top-download {
       background-color: #00cc66;
       color: white;
@@ -75,31 +100,35 @@
       align-items: center;
       gap: 8px;
     }
+
     .top-download:hover {
       background-color: #00e699;
       animation: pulse 1.5s infinite;
     }
+
     .top-download:active {
       transform: scale(0.95);
     }
-    /* Centered password box */
+
+    /* Password box centered */
     .password-info {
       background-color: #222;
       color: #00cc66;
       font-weight: 600;
       font-size: 1.1rem;
       padding: 10px 16px;
-      margin: 30px auto 40px auto; /* centers horizontally */
-      max-width: 320px;
+      margin: 30px auto 40px auto;
       border-radius: 8px;
       border: 2px solid #00cc66;
       text-align: center;
       user-select: text;
       font-family: 'Inter', sans-serif;
-      position: relative;
-      display: inline-block;
-      cursor: default;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-width: fit-content;
     }
+
     .password-info code {
       font-family: monospace;
       background: #003300;
@@ -107,53 +136,22 @@
       border-radius: 4px;
       color: #00ff99;
       font-weight: 700;
+      margin-left: 6px;
     }
-    .tooltip-icon {
-      width: 18px;
-      height: 18px;
-      fill: #00cc66;
-      margin-left: 8px;
-      vertical-align: middle;
-      cursor: help;
-      position: relative;
-    }
-    .tooltip-text {
-      visibility: hidden;
-      width: 240px;
-      background-color: #00cc66;
-      color: #121212;
-      text-align: center;
-      border-radius: 6px;
-      padding: 8px 12px;
-      position: absolute;
-      z-index: 100;
-      bottom: 125%;
-      left: 50%;
-      transform: translateX(-50%);
-      opacity: 0;
-      transition: opacity 0.3s;
-      font-weight: 600;
-      font-size: 0.9rem;
-      user-select: none;
-      pointer-events: none;
-    }
-    .password-info:hover .tooltip-text,
-    .password-info:focus-within .tooltip-text {
-      visibility: visible;
-      opacity: 1;
-      pointer-events: auto;
-    }
+
     .container {
       max-width: 800px;
       margin: 0 auto;
       padding: 40px 20px;
       text-align: center;
     }
+
     .subtitle {
       font-style: italic;
       margin-top: -10px;
       color: #cccccc;
     }
+
     .screenshot {
       display: block;
       margin: 30px auto 40px auto;
@@ -162,6 +160,7 @@
       border-radius: 12px;
       box-shadow: 0 0 20px rgba(0,255,153,0.2);
     }
+
     .features {
       text-align: left;
       margin: 20px auto 40px auto;
@@ -170,14 +169,17 @@
       transform: translateY(20px);
       transition: opacity 0.8s ease, transform 0.8s ease;
     }
+
     .features.visible {
       opacity: 1;
       transform: translateY(0);
     }
+
     .features li {
       margin: 10px 0;
       line-height: 1.5;
     }
+
     .button {
       display: inline-block;
       margin: 0 auto 40px auto;
@@ -192,13 +194,16 @@
       transition: background 0.3s ease, transform 0.1s ease;
       text-decoration: none;
     }
+
     .button:hover {
       background-color: #00e699;
       animation: pulse 1.5s infinite;
     }
+
     .button:active {
       transform: scale(0.95);
     }
+
     @keyframes pulse {
       0%, 100% {
         box-shadow: 0 0 0 0 rgba(0, 204, 102, 0.7);
@@ -207,12 +212,14 @@
         box-shadow: 0 0 8px 8px rgba(0, 204, 102, 0);
       }
     }
+
     .footer {
       margin-top: 80px;
       font-size: 0.9rem;
       color: #777;
       text-align: center;
     }
+
     .testimonials {
       max-width: 600px;
       margin: 60px auto 40px auto;
@@ -223,10 +230,12 @@
       transform: translateY(20px);
       transition: opacity 0.8s ease, transform 0.8s ease;
     }
+
     .testimonials.visible {
       opacity: 1;
       transform: translateY(0);
     }
+
     .testimonials blockquote {
       background-color: #222;
       padding: 20px 25px;
@@ -234,6 +243,7 @@
       margin: 20px 0;
       border-radius: 6px;
     }
+
     .social-links {
       margin-top: 20px;
       display: flex;
@@ -241,12 +251,14 @@
       gap: 30px;
       font-weight: 600;
     }
+
     .social-links a {
       color: #00cc66;
       text-decoration: none;
       font-size: 1.1rem;
       transition: color 0.3s ease;
     }
+
     .social-links a:hover {
       color: #00e699;
       text-decoration: underline;
@@ -259,34 +271,25 @@
       <h1>AutoEat v2.1</h1>
     </div>
     <div class="topbar-right">
-      <div class="safe-badge" aria-label="Download safety information" tabindex="0" role="tooltip">
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zM12 3.3l6 2.67v5.15c0 4.02-2.77 7.74-6 8.86-3.23-1.12-6-4.84-6-8.86V5.97L12 3.3z"></path>
+      <div class="safe-badge" tabindex="0">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zM12 3.3l6 2.67v5.15c0 4.02-2.77 7.74-6 8.86-3.23-1.12-6-4.84-6-8.86V5.97L12 3.3z"/>
         </svg>
         100% Safe
+        <div class="safe-tooltip">Scanned and verified</div>
       </div>
-      <a href="AutoEat.exe" class="top-download" download id="topDownloadBtn">Download</a>
+      <a href="AutoEat.exe" class="top-download" download>Download</a>
     </div>
   </div>
 
-  <!-- Password info with tooltip, centered -->
-  <div class="password-info" tabindex="0">
+  <div class="password-info">
     Password: <code>Xenfulz!</code>
-    <svg class="tooltip-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-      <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm.75 15h-1.5v-1.5h1.5V17zm0-3h-1.5V7h1.5v7z"/>
-    </svg>
-    <div class="tooltip-text" role="tooltip">
-      Use this password to unlock the application after download.
-    </div>
   </div>
 
   <div class="container">
     <p class="subtitle">The smart auto-key macro tool by Xenfulz</p>
-
     <img src="AutoEat.png" alt="AutoEat Screenshot" class="screenshot" />
-
-    <!-- Download button centered below image -->
-    <a href="AutoEat.exe" class="button" download id="mainDownloadBtn">Download Now</a>
+    <a href="AutoEat.exe" class="button" download>Download Now</a>
 
     <h2>Features</h2>
     <ul class="features" id="featuresList">
@@ -297,7 +300,6 @@
       <li>⏳ Real-time countdown and action counter</li>
     </ul>
 
-    <!-- Testimonials -->
     <h2>User Testimonials</h2>
     <div class="testimonials" id="testimonialsSection">
       <blockquote>
@@ -313,17 +315,14 @@
 
     <div class="footer">
       &copy; 2025 Xenfulz. All rights reserved.
-
-      <!-- Social links -->
       <div class="social-links">
-        <a href="https://www.youtube.com/@Xenfulz" target="_blank" rel="noopener" aria-label="YouTube">YouTube</a>
-        <a href="https://www.tiktok.com/@.xenfulz" target="_blank" rel="noopener" aria-label="TikTok">TikTok</a>
+        <a href="https://www.youtube.com/@Xenfulz" target="_blank">YouTube</a>
+        <a href="https://www.tiktok.com/@.xenfulz" target="_blank">TikTok</a>
       </div>
     </div>
   </div>
 
   <script>
-    // Fade-in on scroll function
     function fadeInOnScroll(el) {
       const rect = el.getBoundingClientRect();
       if (rect.top < window.innerHeight * 0.85) {
