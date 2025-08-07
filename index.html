@@ -261,7 +261,14 @@
   </div>
 
   <script>
-    // Removed download counter script as it's not used anymore
+    // Keep original download counter functionality for buttons (if you want to re-enable later, but currently no counter shown)
+    function incrementCounter() {
+      let count = localStorage.getItem('downloadCount') || 0;
+      count = parseInt(count) + 1;
+      localStorage.setItem('downloadCount', count);
+    }
+    document.getElementById('topDownloadBtn').addEventListener('click', incrementCounter);
+    document.getElementById('mainDownloadBtn').addEventListener('click', incrementCounter);
   </script>
 </body>
 </html>
