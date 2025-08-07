@@ -33,6 +33,25 @@
       align-items: center;
       gap: 15px;
     }
+    .safe-badge {
+      background-color: #2a2a2a;
+      color: white;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid #00cc66;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .safe-badge svg {
+      width: 18px;
+      height: 18px;
+      fill: #00cc66;
+      flex-shrink: 0;
+    }
     .top-download {
       background-color: #00cc66;
       color: white;
@@ -171,6 +190,12 @@
       <h1>AutoEat v2.1</h1>
     </div>
     <div class="topbar-right">
+      <div class="safe-badge" aria-label="Safety badge">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zM11 17l-5-5 1.41-1.41L11 14.17l6.59-6.59L19 9l-8 8z"/>
+        </svg>
+        100% Safe
+      </div>
       <a href="AutoEat.exe" class="top-download" download id="topDownloadBtn">Download</a>
     </div>
   </div>
@@ -216,7 +241,5 @@
       </div>
     </div>
   </div>
-
-  <!-- No JS needed anymore -->
 </body>
 </html>
