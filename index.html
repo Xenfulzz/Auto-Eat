@@ -75,32 +75,27 @@
       transform: scale(0.95);
     }
     .password-info {
-      background-color: #00cc66;
-      color: #121212;
-      font-weight: 700;
-      font-size: 1.3rem;
-      padding: 16px 24px;
+      background-color: #222;
+      color: #00cc66;
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 10px 16px;
       margin: 30px auto 40px auto;
-      max-width: 300px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px #00cc66aa;
+      max-width: 280px;
+      border-radius: 8px;
+      border: 2px solid #00cc66;
       text-align: center;
       user-select: text;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
+      font-family: 'Inter', sans-serif;
     }
     .password-info code {
-      background-color: #e0ffe6;
-      color: #007733;
+      background-color: transparent;
+      color: #00ff99;
       font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 6px;
-      font-size: 1.3rem;
-    }
-    .password-icon {
-      font-size: 1.6rem;
+      font-size: 1.15rem;
+      padding-left: 4px;
+      padding-right: 4px;
+      font-family: 'Consolas', monospace, monospace;
     }
     .container {
       max-width: 800px;
@@ -219,8 +214,7 @@
   </div>
 
   <div class="password-info" role="alert" aria-live="polite">
-    <strong>Password:</strong> <code>Xenfulz!</code>
-    <span class="password-icon" aria-hidden="true">🔑</span>
+    Password: <code>Xenfulz!</code>
   </div>
 
   <div class="container">
@@ -262,7 +256,7 @@
   </div>
 
   <script>
-    // No more download counter, so script removed
+    // Removed download counter code since no longer needed
   </script>
 </body>
 </html>
